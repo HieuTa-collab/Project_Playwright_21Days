@@ -1,0 +1,8 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://demowebshop.tricentis.com/');
+  await page.getByRole('link', { name: 'Log in' }).click();
+
+  await expect(page).toHaveURL(/login/);
+});
