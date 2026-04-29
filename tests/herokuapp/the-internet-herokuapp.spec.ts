@@ -116,3 +116,4 @@ test('check Checkboxes', async ({ page }) => {
         await page.getByRole('link', { name: 'Dropdown' }).click();
 
         // await expect(page).toHaveURL(/dropdown/);
+});
