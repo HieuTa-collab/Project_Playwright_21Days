@@ -80,5 +80,39 @@ test('check Checkboxes', async ({ page }) => {
 
     await expect(page).toHaveURL(/checkboxes/);
 
+    //Kiểm tra xem có 2 checkbox không
+    const count = await page.getByRole('checkbox').count();
+    expect(count).toBe(2);  
+    console.log(`Số lượng checkbox: ${count}`);
+
+    //click checkbox 1
+ await page.getByRole('checkbox').nth(0).check();
+
+    //Kiểm tra xem checkbox 1 đã được chọn chưa
+    await expect(page.getByRole('checkbox').nth(0)).toBeChecked();
+    console.log('Checkbox 1 đã được chọn');
+
+    //checck checkbox 2, nếu checkbox 2 đã dc checck thì bỏ check, nếu chưa được check thì check
+    const checkbox2 = page.getByRole('checkbox').nth(1);
     
+    if (await checkbox2.isChecked()) {
+        console.log('Checkbox 2 đã được chọn, sẽ bỏ chọn');
+
+        await checkbox2.uncheck();
+        await expect(checkbox2).not.toBeChecked();
+        console.log('Checkbox 2 đã được bỏ chọn');
+    } else {
+        console.log('Checkbox 2 chưa được chọn, sẽ chọn');
+
+        await checkbox2.check();
+        await expect(checkbox2).toBeChecked();
+        console.log('Checkbox 2 đã được chọn'); 
+    }
     });
+
+    //xử ly Dropdown
+    test('check Dropdown', async ({ page }) => {
+        //click vào link "Dropdown"
+        await page.getByRole('link', { name: 'Dropdown' }).click();
+
+        // await expect(page).toHaveURL(/dropdown/);
